@@ -1,0 +1,126 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  color: #fff;
+  font-size: 0.14rem;
+}
+.page_content {
+  width: 100%;
+  flex: 1 0 0;
+  overflow-y: auto;
+}
+
+.data_box {
+  display: inline-block;
+  position: relative;
+  font-size: 0;
+}
+
+/* 头像 */
+.data_box1_img {
+  width: 100vw;
+  height: auto;
+}
+
+/* 实时时间 */
+.realtime_wrap {
+  color: #4977ff;
+  text-align: center;
+}
+#ms {
+  color: rgb(234, 0, 0);
+}
+
+/* 中间的数据 */
+.content_wrap {
+  overflow: hidden;
+  background-color: #0dad52;
+}
+.form {
+  margin: 0 0.375rem;
+  background-color: #fff;
+  line-height: 0.25rem;
+}
+.form1 {
+  padding: 0.03rem 0 0;
+}
+.form2 {
+  padding: 0.06rem 0 0.1rem;
+}
+.form_item {
+  display: flex;
+  align-items: center;
+}
+.label {
+  color: #4977ff;
+  margin-left: 0.45rem;
+}
+.input {
+  box-sizing: border-box;
+  width: 1.34rem;
+  border-bottom: 0.01rem solid #cbcbcb;
+  color: #27354f;
+  padding-left: 0.24rem;
+}
+
+/* 显示日期 */
+.data_box2 {
+}
+.data_box2_img {
+  width: 100vw;
+  height: auto;
+}
+.date_item {
+  position: absolute;
+  top: 0.19rem;
+  left: 0.78rem;
+  /* 位置 end */
+  background-color: #8dcd62;
+  width: 1.045rem;
+  height: 0.865rem;
+  overflow: hidden;
+  border-radius: 0.03rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 0.14rem;
+  color: rgb(245, 245, 245);
+}
+.tip_wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  line-height: 0.16rem;
+}
+.text48 {
+  font-size: 0.24rem;
+  font-weight: bold;
+  margin-right: 0.04rem;
+}
+.text48_tip {
+  font-size: 0.135rem;
+}
+.date48 {
+  font-size: 0.14rem;
+  margin-top: -0.01rem;
+}
+
+.forHeight {
+  height: 0.7rem;
+  background-color: #0dad52;
+  margin-top: -0.08rem;
+}
+
+/* tabbar */
+.tabbar {
+  width: 100%;
+  height: auto;
+}

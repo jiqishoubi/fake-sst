@@ -1,12 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    123
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- 处理html缓存 -->
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta http-equiv="Cache" content="no-cache" />
+    <!-- 处理html缓存 end -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <title>盛事通</title>
+    <script>
+      document.documentElement.style.fontSize = (document.documentElement.clientWidth / 375) * 100 + 'px'
+    </script>
+    <link rel="stylesheet" href="./index.css" />
+    <script>
+      // 获取前一天
+      const date_hesuan = new Date(new Date().getTime() - 86400000).toLocaleString().replaceAll('/', '-').substring(0, 10)
+
+      let timer = null
+
+      function setRealtime() {
+        const date = new Date()
+
+        const year = date.getFullYear().toString() // 年
+        const opt = {
+          'm+': (date.getMonth() + 1).toString(), // 月
+          'd+': date.getDate().toString(), // 日
+          'H+': date.getHours().toString(), // 时
+          'M+': date.getMinutes().toString(), // 分
+          'S+': date.getSeconds().toString(), // 秒
+          'MS+': date.getMilliseconds().toString(), // 毫秒
+        }
+        for (let key in opt) {
+          if (Number(opt[key]) < 10) opt[key] = '0' + opt[key]
+        }
+
+        // 操作dom
+        document.getElementById('year').innerHTML = year
+        document.getElementById('month').innerHTML = opt['m+']
+        document.getElementById('date').innerHTML = opt['d+']
+        document.getElementById('hh').innerHTML = opt['H+']
+        document.getElementById('mm').innerHTML = opt['M+']
+        document.getElementById('ss').innerHTML = opt['S+']
+        document.getElementById('ms').innerHTML = opt['MS+']
+      }
+
+      // 实时时间
+      function initRealtime() {
+        if (timer) {
+          window.clearInterval(timer)
+          timer = null
+        }
+        timer = setInterval(setRealtime, 20)
+      }
+
+      window.onload = function () {
+        // 核酸时间
+        document.getElementsByClassName('date48')[0].innerHTML = date_hesuan
+        initRealtime()
+      }
+    </script>
+  </head>
+  <body>
+    <div class="page_content">
+      <div class="data_box data_box1"><img class="data_box1_img" src="./assets/img1.jpeg"/ ></div>
+      <div class="content_wrap" style="margin-top:-0.08rem">
+        <div class="form form1">
+          <div class="realtime_wrap">
+            <div>
+              <span id="year"></span><span>年</span><span id="month"></span><span>月</span><span id="date"></span><span>日</span>
+            </div>
+            <div>
+              <span id="hh"></span><span>时</span><span id="mm"></span><span>分</span><span id="ss"></span><span>秒</span><span id="ms"></span><span>毫秒</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content_wrap" style="margin-top:-0.01rem">
+        <div class="form form2">
+          <div class="form_item">
+            <div class="label">姓名:</div>
+            <div class="input">* 舟</div>
+          </div>
+          <div class="form_item">
+            <div class="label">社区:</div>
+            <div class="input">格林英俊</div>
+          </div>
+          <div class="form_item">
+            <div class="label">小区:</div>
+            <div class="input">江南时代</div>
+          </div>
+        </div>
+      </div>
+      <div class="data_box data_box2" style="margin-top:-0.01rem">
+        <img class="data_box2_img" src="./assets/img2.jpeg"/ >
+        <div class="date_item">
+          <div>核酸检测</div>
+          <div class="tip_wrap">
+            <div class="text48">48</div>
+            <div class="text48_tip">
+              <div>小时</div>
+              <div>阴性</div>
+            </div>
+          </div>
+          <div class="date48"></div>
+        </div>
+      </div>
+      <div class="forHeight"></div>
+    </div>
+    <img class="tabbar" src="./assets/tabbar.jpeg" />
+  </body>
 </html>
