@@ -16,6 +16,62 @@
     </script>
     <link rel="stylesheet" href="./index.css" />
     <script>
+      //从地址获取参数 这个是最终版本
+      const getUrlParam = (key, url) => {
+        if (!key) return null
+        if (!url) url = window.location.href
+
+        let vStr = ''
+
+        const nameKeyArr = [`?${key}=`, `&${key}=`]
+        let nameKey = '' // ?doctorCode=  或者  &doctorCode=
+        for (let k = 0; k < nameKeyArr.length; k++) {
+          if (url.indexOf(nameKeyArr[k]) > -1) {
+            nameKey = nameKeyArr[k]
+            break
+          }
+        }
+        if (nameKey) {
+          const containValueUrl = url.split(nameKey)[1] // 包含value的url截取
+          // 有containValueUrl 就肯定是有值了
+          if (containValueUrl) {
+            let value
+            const symbolArr = [{ symbol: '?' }, { symbol: '&' }, { symbol: '#' }] // 下一个变量的 符号
+            const symbolIndexArr = symbolArr
+              .map((symbolItem) => {
+                return containValueUrl.indexOf(symbolItem.symbol)
+              })
+              .filter((index) => index > -1)
+              .sort((a, b) => a - b) // index升序排列
+            const symbolIndex = symbolIndexArr[0] ?? -1 // 拿到第一个（最前面的symbol的index）
+            // 有符号
+            if (symbolIndex > -1) {
+              value = containValueUrl.substring(0, symbolIndex)
+            } else {
+              value = containValueUrl
+            }
+            vStr = value // 拿到value
+          }
+        }
+
+        return decodeURIComponent(vStr) // 获取的时候 最后尝试解个码
+      }
+      const personMap = {
+        db: {
+          headImg: './headImg/dabao.png',
+          name: '* 舟',
+          shequ: '格林英俊',
+          xiaoqu: '江南时代',
+        },
+        xb: {
+          headImg: './headImg/xiaobao.png',
+          name: '* 怡然',
+          shequ: '格林英俊',
+          xiaoqu: '江南时代',
+        },
+      }
+    </script>
+    <script>
       // 获取前一天
       const date_hesuan = new Date(new Date().getTime() - 86400000).toLocaleString().replaceAll('/', '-').substring(0, 10)
 
@@ -60,13 +116,26 @@
         // 核酸时间
         document.getElementsByClassName('date48')[0].innerHTML = date_hesuan
         initRealtime()
+
+        // 设置人员
+        const type = getUrlParam('type')
+        const personConfig = personMap[type]
+        document.getElementById('zhanwei_head_img_img').setAttribute('src', personConfig.headImg)
+        document.getElementById('xingming').innerHTML = personConfig.name
+        document.getElementById('shequ').innerHTML = personConfig.shequ
+        document.getElementById('xiaoqu').innerHTML = personConfig.xiaoqu
       }
     </script>
   </head>
   <body>
     <div class="page_content">
-      <div class="data_box data_box1"><img class="data_box1_img" src="./assets/img1.jpeg"/ ></div>
-      <div class="content_wrap" style="margin-top:-0.08rem">
+      <div class="data_box data_box1">
+        <img class="data_box1_img" src="./assets/img1.jpeg"/ >
+        <div class="zhanwei_head_img">
+          <img id="zhanwei_head_img_img" src="" />
+        </div>
+      </div>
+      <div class="content_wrap" style="margin-top: -0.08rem">
         <div class="form form1">
           <div class="realtime_wrap">
             <div>
@@ -78,23 +147,23 @@
           </div>
         </div>
       </div>
-      <div class="content_wrap" style="margin-top:-0.01rem">
+      <div class="content_wrap" style="margin-top: -0.01rem">
         <div class="form form2">
           <div class="form_item">
             <div class="label">姓名:</div>
-            <div class="input">* 舟</div>
+            <div class="input" id="xingming"></div>
           </div>
           <div class="form_item">
             <div class="label">社区:</div>
-            <div class="input">格林英俊</div>
+            <div class="input" id="shequ"></div>
           </div>
           <div class="form_item">
             <div class="label">小区:</div>
-            <div class="input">江南时代</div>
+            <div class="input" id='xiaoqu'></div>
           </div>
         </div>
       </div>
-      <div class="data_box data_box2" style="margin-top:-0.01rem">
+      <div class="data_box data_box2" style="margin-top: -0.01rem">
         <img class="data_box2_img" src="./assets/img2.jpeg"/ >
         <div class="date_item">
           <div>核酸检测</div>
